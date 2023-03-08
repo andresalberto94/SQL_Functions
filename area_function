@@ -1,0 +1,52 @@
+USE [geografia]
+GO
+/****** Object:  UserDefinedFunction [dbo].[get_andys]    Script Date: 18/12/2022 16:23:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Andres Gomez>
+-- Create date: <Create Date, ,>
+-- Description:	<Description, ,>
+-- =============================================
+ALTER FUNCTION [dbo].[get_andys]
+(
+	-- Add the parameters for the function here
+	 @pais AS VARCHAR(50),
+	 @provincia AS VARCHAR(50),
+	 @canton AS VARCHAR(50),
+	 @dist AS VARCHAR(50)
+	 
+	 
+)
+RETURNS varchar(50)
+AS
+BEGIN
+	-- Declare the return variable here
+	DECLARE @cal as FLOAT;
+	
+	IF @dist IS NOT NULL
+	-- Add the T-SQL statements to compute the return value here
+	SELECT @cal= sum(area)from dist_lim where distrito=@dist
+
+	ELSE IF @canton IS NOT NULL
+
+	SELECT @cal= sum(area)from dist_lim where canton=@canton
+
+	ELSE
+	BEGIN
+
+	IF @provincia IS NOT NULL
+	SELECT @cal= sum(area)from dist_lim where provincia=@provincia
+
+	ELSE if @pais IS NOT NULL
+	SELECT @cal= sum(area)from dist_lim where pais=@pais
+
+	END
+	-- Return the result of the function
+	RETURN @cal;
+	
+	
+END
+GO
