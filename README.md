@@ -4,6 +4,6 @@ It is a function which receives the following parameters:
 supplied parameters
 
 
-Softwware:
+Software:
 
 SQL Server
